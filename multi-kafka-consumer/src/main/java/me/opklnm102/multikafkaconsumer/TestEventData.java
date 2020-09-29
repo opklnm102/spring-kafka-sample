@@ -11,11 +11,13 @@ import lombok.ToString;
 public class TestEventData {
 
     private final String name;
+    private final String email;
     private final int age;
-
+    
     @JsonCreator
-    public TestEventData(String name, int age) {
+    public TestEventData(String name, String email, int age) {
         this.name = name;
+        this.email = email;
         this.age = age;
     }
 }

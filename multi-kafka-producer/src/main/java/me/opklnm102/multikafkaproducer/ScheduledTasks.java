@@ -20,7 +20,7 @@ public class ScheduledTasks {
 
     @Scheduled(fixedRate = 3000)
     public void reportCurrentTime() {
-        send(new TestEvent(new TestEventData("mike", 15)));
+        send(new TestEvent(new TestEventData("mike", "xxxx@example.com", 15)));
 
         send(new ThingEvent(new ThingEventData(1)));
     }
