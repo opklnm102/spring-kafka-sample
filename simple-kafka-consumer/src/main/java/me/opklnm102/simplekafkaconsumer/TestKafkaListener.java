@@ -30,7 +30,7 @@ public class TestKafkaListener {
     @KafkaListener(topics = "thing2")
     public void receiveTestTopics(
             @Payload String message,
-            @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
+            @Header(KafkaHeaders.RECEIVED_PARTITION) int partition) {
         log.info("Receiver on test topic - partition : {}, payload : {}", partition, message);
     }
 }

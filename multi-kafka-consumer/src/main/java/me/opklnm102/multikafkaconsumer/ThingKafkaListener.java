@@ -16,12 +16,7 @@ public class ThingKafkaListener {
     @KafkaListener(topics = "thing1", containerFactory = "thingContainerFactory")
     public void receiveThingTopics(
             @Payload ThingEvent message,
-            @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
+            @Header(KafkaHeaders.RECEIVED_PARTITION) int partition) {
         log.info("Receiver on thing1 topic - partition : {}, payload : {}", partition, message);
-    }
-
-    @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, ThingEvent> thingContainerFactory(KafkaConsumerConfiguration.KafkaListenerContainerFactoryBuilder factoryBuilder) {
-        return factoryBuilder.build("thing1", 3, 3000);
     }
 }

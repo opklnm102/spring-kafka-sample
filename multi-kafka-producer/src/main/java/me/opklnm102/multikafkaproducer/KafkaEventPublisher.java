@@ -15,8 +15,12 @@ public class KafkaEventPublisher implements EventPublisher {
     @Override
     public void send(BaseEvent<?> event) {
         kafkaTemplate.send(event.getTopic(), event)
-                     .addCallback(result -> log.info("send success - topic : {}, payload : {}, result : {}", event.getTopic(), event, result),
-                             ex -> log.error("send fail - topic : {}, payload : {}", event.getTopic(), event, ex));
+                     .whenComplete((result, throwable) -> {
+                         if (throwable != null) {
+                             log.error("send fail - topic : {}, payload : {}", event.getTopic(), event, throwable);
+                         } else {
+                             log.info("send success - topic : {}, payload : {}, result : {}", event.getTopic(), event, result);
+                         }
+                     });
     }
 }
-

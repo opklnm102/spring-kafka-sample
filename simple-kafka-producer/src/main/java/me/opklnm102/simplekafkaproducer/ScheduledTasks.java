@@ -20,8 +20,11 @@ public class ScheduledTasks {
 
     public void send(String topic, String payload) {
         kafkaTemplate.send(topic, payload)
-                     .addCallback(result -> log.info("send success - topic : {}, payload : {}, result : {}", topic, payload, result),
-                             ex -> log.error("send fail - topic : {}, payload : {}", topic, payload, ex));
+                     .thenAccept(result -> log.info("send success - topic : {}, payload : {}, result : {}", topic, payload, result))
+                     .exceptionally(throwable -> {
+                         log.error("send fail - topic : {}, payload : {}", topic, payload, throwable);
+                         return null;
+                     });
     }
 
     @Scheduled(fixedRate = 3000)
