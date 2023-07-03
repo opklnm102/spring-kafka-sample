@@ -28,6 +28,11 @@ services:
       - ./kafka-update-cluster-run.sh:/tmp/kafka-update-cluster-run.sh
       - ./clusterID:/tmp/clusterID
     command: "bash -c 'if [ ! -f /tmp/kafka-update-cluster-run.sh ]; then echo \"ERROR: Did you forget the kafka-update-cluster-run.sh file?\" && exit 1 ; else /tmp/kafka-update-cluster-run.sh && /etc/confluent/docker/run ; fi'"
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "9092" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   kafka-2:
     image: confluentinc/cp-kafka:7.3.2
@@ -56,6 +61,11 @@ services:
       - ./kafka-update-cluster-run.sh:/tmp/kafka-update-cluster-run.sh
       - ./clusterID:/tmp/clusterID
     command: "bash -c 'if [ ! -f /tmp/kafka-update-cluster-run.sh ]; then echo \"ERROR: Did you forget the kafka-update-cluster-run.sh file?\" && exit 1 ; else /tmp/kafka-update-cluster-run.sh && /etc/confluent/docker/run ; fi'"
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "9092" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   kafka-3:
     image: confluentinc/cp-kafka:7.3.2
@@ -84,6 +94,11 @@ services:
       - ./kafka-update-cluster-run.sh:/tmp/kafka-update-cluster-run.sh
       - ./clusterID:/tmp/clusterID
     command: "bash -c 'if [ ! -f /tmp/kafka-update-cluster-run.sh ]; then echo \"ERROR: Did you forget the kafka-update-cluster-run.sh file?\" && exit 1 ; else /tmp/kafka-update-cluster-run.sh && /etc/confluent/docker/run ; fi'"
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "9092" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   kafka-ui:
     container_name: kafka-ui
