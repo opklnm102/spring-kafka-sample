@@ -39,7 +39,8 @@ services:
     ports:
       - "8010:8080"
     depends_on:
-      - kafka-0
+      kafka-0:
+        condition: service_healthy
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-0:29092
